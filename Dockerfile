@@ -2,8 +2,8 @@ FROM tiangolo/uwsgi-nginx-flask:python3.11
 
 RUN echo "uwsgi_read_timeout 600;" > /etc/nginx/conf.d/custom_timeout.conf
 
-ENV UWSGI_CHEAPER 8
-ENV UWSGI_PROCESSES 16
+# ENV UWSGI_CHEAPER 8
+# ENV UWSGI_PROCESSES 16
 
 COPY ./requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
