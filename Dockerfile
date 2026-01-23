@@ -1,6 +1,5 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.11
 
-# Increase timeout (thanks https://github.com/tiangolo/uwsgi-nginx-flask-docker/issues/120#issuecomment-459857072)
 RUN echo "uwsgi_read_timeout 600;" > /etc/nginx/conf.d/custom_timeout.conf
 
 ENV UWSGI_CHEAPER 8
@@ -22,5 +21,10 @@ RUN chown nobody /var/log/ploverdb.log
 
 RUN touch /var/log/uwsgi.log
 RUN chown nobody /var/log/uwsgi.log
+
+# CRITICAL FIX: Remove or override the base image's uwsgi.ini to prevent loading two configs
+RUN rm -f /etc/uwsgi/uwsgi.ini
+# OR copy your uwsgi.ini to override it:
+# COPY ./uwsgi.ini /etc/uwsgi/uwsgi.ini
 
 RUN python /app/app/build_indexes.py
