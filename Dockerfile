@@ -22,9 +22,7 @@ RUN chown nobody /var/log/ploverdb.log
 RUN touch /var/log/uwsgi.log
 RUN chown nobody /var/log/uwsgi.log
 
-# CRITICAL FIX: Remove or override the base image's uwsgi.ini to prevent loading two configs
-RUN rm -f /etc/uwsgi/uwsgi.ini
-# OR copy your uwsgi.ini to override it:
-# COPY ./uwsgi.ini /etc/uwsgi/uwsgi.ini
+# Copy your corrected uwsgi.ini to replace the base image's default config
+RUN cp /app/uwsgi.ini /etc/uwsgi/uwsgi.ini
 
 RUN python /app/app/build_indexes.py
