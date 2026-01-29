@@ -12,9 +12,8 @@ RUN apt-get update && apt-get install -y ca-certificates
 
 RUN mkdir -p /home/nobody
 ENV HOME=/home/nobody
-COPY ./.git /home/nobody/.git
-COPY ./app /app
-RUN chown -R nobody /home/nobody
+COPY --chown=nobody:nogroup ./.git /home/nobody/.git
+COPY --chown=nobody:nogroup ./app /app
 
 RUN touch /var/log/ploverdb.log
 RUN chown nobody /var/log/ploverdb.log
